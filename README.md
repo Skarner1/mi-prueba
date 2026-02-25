@@ -56,9 +56,5 @@ Salida esperada:
 All tests passed!
 ```
 
-Archivos importantes
 
 
-Contacto
---------
-Para cualquier duda, contacta a: Tu Nombre - tu.email@example.com
