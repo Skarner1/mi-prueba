@@ -57,23 +57,7 @@ All tests passed!
 ```
 
 Archivos importantes
---------------------
-- `lib/` — código fuente
-- `test/` — tests unitarios
-- `android/`, `ios/`, `web/` — plataformas
-- `pubspec.yaml` — dependencias
-- `build/app/outputs/flutter-apk/app-release.apk` — APK generado (no subir build/ al repo; usa Releases)
 
-APK y entrega
--------------
-Recomendado: subir el APK al apartado Releases de GitHub (no dentro del árbol del repo).
-- Tag sugerido: `v1.0.0`
-- Nombre de APK: `app-release-v1.0.0.apk`
-
-Notas de seguridad
-------------------
-- No subir archivos sensibles: `*.jks`, `key.properties`, `.env`. Si están en el repo, elimínalos del índice y agrégalos a `.gitignore`.
-- Si compartiste una keystore por error, rota/renueva las credenciales.
 
 Contacto
 --------
