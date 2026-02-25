@@ -1,0 +1,32 @@
+name: eje
+description: "A new Flutter project."
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.2
+  dio: ^5.7.0
+  fluttertoast: ^8.2.8
+  google_fonts: ^6.2.1
+  flutter_svg: ^2.0.10+1 # solo si vas a usar .svg
+
+
+dev_dependencies:
+  mocktail: ^1.0.4
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
