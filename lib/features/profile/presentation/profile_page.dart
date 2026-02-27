@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../hiring_tests/presentation/hiring_page.dart';
+import '../../catalog/presentation/catalog_page.dart';
+
 class ProfilePage extends StatelessWidget {
   static const routeName = '/profile';
   const ProfilePage({super.key});
@@ -28,32 +31,30 @@ class ProfilePage extends StatelessWidget {
       backgroundColor: const Color(0xFFF6F3F8),
       body: Stack(
         children: [
-          // top decorative
           Positioned(
             top: -24,
             left: -8,
             right: -8,
             child: Image.asset('assets/images/vector_superior.png', fit: BoxFit.cover, height: 180),
           ),
-
-          // bottom wave
           Positioned(
             bottom: -12,
             left: 0,
             right: 0,
             child: Image.asset('assets/images/vector_inferior.png', fit: BoxFit.cover, height: 120),
           ),
-
           SafeArea(
             child: Column(
               children: [
                 const SizedBox(height: 12),
-                // top row (back + title)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     children: [
-                      IconButton(onPressed: () => Navigator.of(context).pop(), icon: const Icon(Icons.arrow_back, color: Color(0xFF00249C))),
+                      IconButton(
+                        onPressed: () => Navigator.of(context).pushReplacementNamed(HiringPage.routeName),
+                        icon: const Icon(Icons.arrow_back, color: Color(0xFF00249C)),
+                      ),
                       const SizedBox(width: 6),
                       Text('Perfil', style: GoogleFonts.montserrat(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xFF00249C))),
                       const Spacer(),
@@ -61,16 +62,13 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 14),
-
-                // avatar central with gradient ring
                 Center(
                   child: Container(
                     width: avatarSize + 18,
                     height: avatarSize + 18,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(colors: [Color(0xFFE280BE), Color(0xFF40CEE4)], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(colors: [Color(0xFFE280BE), Color(0xFF40CEE4)], begin: Alignment.topLeft, end: Alignment.bottomRight),
                       shape: BoxShape.circle,
                     ),
                     child: Center(
@@ -89,10 +87,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 10),
-
-                // Disponibilidad indicator
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -107,10 +102,7 @@ class ProfilePage extends StatelessWidget {
                     Text('Disponible', style: GoogleFonts.montserrat(color: const Color(0xFF6A6A6A))),
                   ],
                 ),
-
                 const SizedBox(height: 14),
-
-                // card with sections
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -126,25 +118,65 @@ class ProfilePage extends StatelessWidget {
                           _sectionItem('Notificaciones'),
                           _sectionItem('Seguridad'),
                           const SizedBox(height: 8),
-                          Divider(color: const Color(0xFFE0E0E0), height: 18),
+                          const Divider(color: Color(0xFFE0E0E0), height: 18),
                           _sectionTitle('Organizacional'),
                           _sectionItem('Perfil'),
                           _sectionItem('Mensajes'),
                           _sectionItem('Llamadas'),
                           _sectionItem('Gente'),
                           _sectionItem('Calendario'),
-                          // espacio para empujar el contenido arriba y mostrar onda inferior
                           const Spacer(),
+                          const Divider(color: Color(0xFFE0E0E0), height: 24),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.logout, color: Colors.redAccent, size: 20),
+                                  const SizedBox(width: 12),
+                                  Text(
+                                    'Cerrar sesión',
+                                    style: GoogleFonts.montserrat(
+                                      fontSize: 14,
+                                      color: Colors.redAccent,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
                 ),
+                const SizedBox(height: 12),
               ],
             ),
           ),
         ],
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 2,
+        onTap: (index) {
+          if (index == 0) Navigator.of(context).pushReplacementNamed(HiringPage.routeName);
+          if (index == 1) Navigator.of(context).pushReplacementNamed(CatalogPage.routeName);
+        },
+        items: [
+          BottomNavigationBarItem(icon: SvgPicture.asset('assets/icons/Vector_locacion.svg', width: 24), label: 'Inicio'),
+          BottomNavigationBarItem(icon: SvgPicture.asset('assets/icons/Vector_carro.svg', width: 24), label: 'Catálogo'),
+          BottomNavigationBarItem(icon: SvgPicture.asset('assets/icons/Vector_usuario.svg', width: 24, color: const Color(0xFF00249C)), label: 'Perfil'),
+        ],
+        selectedItemColor: const Color(0xFF00249C),
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+        selectedLabelStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600),
+        unselectedLabelStyle: GoogleFonts.montserrat(),
+      ),
     );
   }
-}// TODO Implement this library.
+}

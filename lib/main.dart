@@ -32,12 +32,21 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Autos de lujo',
-        theme: ThemeData(useMaterial3: true),
-        home: const SplashPage(),
+        theme: ThemeData(
+          useMaterial3: true,
+          pageTransitionsTheme: const PageTransitionsTheme(
+            builders: {
+              TargetPlatform.android: ZoomPageTransitionsBuilder(),
+              TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            },
+          ),
+        ),
+        initialRoute: '/',
         routes: {
+          '/': (_) => const SplashPage(),
           HiringPage.routeName: (_) => const HiringPage(),
-          '/catalog': (_) => const CatalogPage(),
-          '/profile': (_) => const ProfilePage(),
+          CatalogPage.routeName: (_) => const CatalogPage(),
+          ProfilePage.routeName: (_) => const ProfilePage(),
         },
       ),
     );

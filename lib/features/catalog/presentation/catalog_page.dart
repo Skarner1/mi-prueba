@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'catalog_card.dart';
+import '../../hiring_tests/presentation/hiring_page.dart';
+import '../../profile/presentation/profile_page.dart';
 
 class CatalogPage extends StatefulWidget {
   static const routeName = '/catalog';
@@ -12,7 +15,6 @@ class CatalogPage extends StatefulWidget {
 }
 
 class _CatalogPageState extends State<CatalogPage> {
-  // demo: lista de imagenes/títulos (reemplaza por datos reales si tienes endpoint)
   final List<Map<String, String>> _items = [
     {'image': 'assets/images/frame_carro_1.png', 'title': 'Mazda MX5'},
     {'image': 'assets/images/frame_carro_2.png', 'title': 'Nissan GT R'},
@@ -28,22 +30,18 @@ class _CatalogPageState extends State<CatalogPage> {
       backgroundColor: const Color(0xFFF6F3F8),
       body: Stack(
         children: [
-          // top decorative
           Positioned(
             top: -24,
             left: -8,
             right: -8,
             child: Image.asset('assets/images/vector_superior.png', fit: BoxFit.cover, height: 180),
           ),
-
-          // bottom decorative
           Positioned(
             bottom: -12,
             left: 0,
             right: 0,
             child: Image.asset('assets/images/vector_inferior.png', fit: BoxFit.cover, height: 120),
           ),
-
           SafeArea(
             child: Column(
               children: [
@@ -53,24 +51,20 @@ class _CatalogPageState extends State<CatalogPage> {
                   child: Row(
                     children: [
                       IconButton(
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () => Navigator.of(context).pushReplacementNamed(HiringPage.routeName),
                         icon: const Icon(Icons.arrow_back, color: Color(0xFF00249C)),
                       ),
                       const SizedBox(width: 6),
                       Text('Catálogo', style: GoogleFonts.montserrat(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xFF00249C))),
                       const Spacer(),
-                      // logo pequeño (opcional)
                       Image.asset('assets/images/Logotipo_motion.png', height: 28),
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 8),
-
-                // listado de cards
                 Expanded(
                   child: ListView.builder(
-                    padding: const EdgeInsets.only(bottom: 88),
+                    padding: const EdgeInsets.only(bottom: 20),
                     itemCount: _items.length,
                     itemBuilder: (context, index) {
                       final it = _items[index];
@@ -83,8 +77,6 @@ class _CatalogPageState extends State<CatalogPage> {
                             if (_checked.contains(index)) _checked.remove(index);
                             else _checked.add(index);
                           });
-
-                          // ejemplo: abrir modal de detalle (opcional)
                           showDialog(
                             context: context,
                             builder: (_) => AlertDialog(
@@ -111,6 +103,23 @@ class _CatalogPageState extends State<CatalogPage> {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        onTap: (index) {
+          if (index == 0) Navigator.of(context).pushReplacementNamed(HiringPage.routeName);
+          if (index == 2) Navigator.of(context).pushReplacementNamed(ProfilePage.routeName);
+        },
+        items: [
+          BottomNavigationBarItem(icon: SvgPicture.asset('assets/icons/Vector_locacion.svg', width: 24), label: 'Inicio'),
+          BottomNavigationBarItem(icon: SvgPicture.asset('assets/icons/Vector_carro.svg', width: 24, color: const Color(0xFF00249C)), label: 'Catálogo'),
+          BottomNavigationBarItem(icon: SvgPicture.asset('assets/icons/Vector_usuario.svg', width: 24), label: 'Perfil'),
+        ],
+        selectedItemColor: const Color(0xFF00249C),
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+        selectedLabelStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600),
+        unselectedLabelStyle: GoogleFonts.montserrat(),
       ),
     );
   }
